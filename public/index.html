@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Nixplay UI</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+        integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/w3-css/4.1.0/w3.css"
+        integrity="sha512-Ef5r/bdKQ7JAmVBbTgivSgg3RM+SLRjwU0cAgySwTSv4+jYcVeDukMp+9lZGWT78T4vCUxgT3g+E8t7uabwRuw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        html,
+        body {
+            height: 100%;
+            font-family: 'Roboto', sans-serif;
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row shadow">
+            <div class="col-12">
+                <nav class="navbar navbar-light p-2 ">
+                    <a class="navbar-brand">
+                        <img class="m-3 brand_logo" src="assets/nixplay-logo-black-2x.png" alt="">
+                    </a>
+                    <ul class="flag-inline">
+                        <li><img src="assets/united-states.svg" alt=""></li>
+                        <li><img src="assets/united-kingdom.svg" alt=""></li>
+                        <li><img src="assets/germany.svg" alt=""></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid p-5 h-100">
+        <div class="row d-flex flex-column align-items-center h-100">
+            <div class="col-sm text-center">
+                <img class="mt-5 pt-5" style="width: 200px;" src="assets/nixplay-logo-black-2x.png" alt="">
+                <h2 class="m-3" style="color:#7f8c8d">Wi-Fi Cloud Frames</h2>
+            </div>
+            <div class="col-sm text-center">
+                <h5 class="m-3">Connect With</h5>
+                <ul class="logo_list">
+                    <li>
+                        <img class="p-2 logos" src="assets/1280px-Amazon_Alexa_logo.svg.png" alt="">
+                    </li>
+                    <li>
+                        <img class="p-2 logos" src="assets/1280px-Flickr_wordmark.svg.png" alt="">
+                    </li>
+                    <li>
+                        <img class="p-2 logos" src="assets/app-google_photos.png" alt="">
+                    </li>
+                </ul>
+                <ul class="logo_list">
+                    <li>
+                        <img class="p-2 logos" src="assets/app-instagram.png" alt="">
+                    </li>
+                    <li>
+                        <img class="p-2 logos" src="assets/app-fb.png" alt="">
+                    </li>
+                    <li>
+                        <img class="p-2 logos" src="assets/Dropbox.svg" alt="">
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm text-center mt-auto">
+                <h5>Scroll to Explore</h5>
+                <a href="#" id="scroll_to"><img style="transform: rotate(90deg); width:30px"
+                        src="assets/right-arrow.svg" alt=""></a>
+            </div>
+        </div>
+    </div>
+    <div id='root' class="h-100"></div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+
+<script src='https://unpkg.com/react-router-dom@5.0.0/umd/react-router-dom.min.js'></script>
+<script src='https://unpkg.com/babel-standalone@6.26.0/babel.js'></script>
+<script>
+    $(document).ready(function () {
+        $("#scroll_to").click(function (e) {
+            e.preventDefault();
+            $('html, body').animate({
+                scrollTop: $("#root").offset().top
+            }, 1000);
+        });
+    });
+</script>
+<script type='text/babel'>
+    const { useState } = React;
+
+    const products = [
+        {
+            id: 0,
+            title: "NIXPLAY IRIS",
+            description: "Modern Authenticity with Aluminum Classic Bezel",
+            inches: [8],
+            image: "assets/01-iris.png",
+            specs: {
+                is_wifi: 1,
+                is_usb: 0,
+                is_sd: 0
+            }
+        },
+        {
+            id: 1,
+            title: "NIXPLAY SEED",
+            description: "Bright colour fun with adjustable angle",
+            inches: [8, 10, 13],
+            image: "assets/PRODUCTPAGE2_nixplay_seed10.png",
+            specs: {
+                is_wifi: 1,
+                is_usb: 0,
+                is_sd: 0
+            }
+
+        },
+        {
+            id: 2,
+            title: "NIXPLAY EDGE",
+            description: "Basic and Black with high-resolution display.",
+            inches: [8],
+            image: "assets/03-edge.png",
+            specs: {
+                is_wifi: 1,
+                is_usb: 1,
+                is_sd: 1
+            }
+        },
+        {
+            id: 3,
+            title: "NIXPLAY ORIGINAL",
+            description: "Entry series with larger screen size options.",
+            inches: [15],
+            image: "assets/04-original.png",
+            specs: {
+                is_wifi: 1,
+                is_usb: 1,
+                is_sd: 1
+            }
+        }
+    ];
+
+    function Product() {
+        const [product_id, setId] = useState(0);
+        const [product, setProduct] = useState(products[0]);
+        const [fade, setFade] = useState('w3-animate-top');
+
+        const handleClick = (e, id) => {
+            e.preventDefault();
+            if (id > product_id) {
+                setFade('w3-animate-bottom');
+            } else {
+                setFade('w3-animate-top');
+            }
+            setProduct(products[id]);
+            setId(id);
+            $('.menu_link span').hide();
+            $(`.bar_${id}`).show();
+        }
+
+        return (
+            <div className={`bg-section-${product_id} container-fluid p-5 h-100`}>
+                <div className="row align-items-center h-100 border-nav">
+                    <div className="col-sm" >
+
+                        <ul className="menu_nav mb-auto">
+                            {products.map((product, index) => (
+                                <li>
+                                    <a onClick={(e) => handleClick(e, index)} className="menu_link" href="#">
+                                        <span className={`bar_${index}`}></span>
+                                        {product.title}
+                                    </a>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <nav className="mt-5">
+                            <a href="#" onClick={(e) => handleClick(e, ((product_id <= 0) ? products.length - 1 : product_id - 1) % products.length)}>
+                                <img className="arrow-up" src="assets/right-arrow.svg" alt="" />
+                            </a>
+                            <a href="#" onClick={(e) => handleClick(e, (product_id + 1) % products.length)}>
+                                <img className="arrow-down" src="assets/right-arrow.svg" alt="" />
+                            </a>
+                        </nav>
+
+                    </div>
+
+                    <div onAnimationEnd={() => setFade('')} className={`col-sm ${fade}`}>
+                        <img className="product_img" src={product.image} alt="" />
+                    </div>
+
+                    <div className="col-sm">
+                        <div className="title_container">
+                            <h1 className={`product_title ${fade}`}><strong>{product.title}</strong></h1>
+                            <p className={`${fade}`}>{product.description}</p>
+                        </div>
+                        <p className="btn border_btn my-3">Learn More</p>
+
+                        <div className="my-4">
+                            {product.inches.map((inches, index) => (
+                                <div className={`num_badge w3-animate-opacity ${(index == 0) ? 'num_badge_solid' : ''}`}><p>{inches}"</p></div>
+                            ))}
+                        </div>
+
+                        <div className="mx-1">
+
+                            {(product.specs.is_wifi == 1) ?
+                                (<span className="specs w3-animate-opacity">
+                                    <img style={{ width: "35px" }} src="assets/wifi.svg" alt="" />
+                                    <p className=""><strong>WIFI</strong></p>
+                                </span>) : null}
+
+                            {(product.specs.is_usb == 1) ?
+                                (<span className="specs w3-animate-opacity">
+                                    <img style={{ width: "35px" }} src="assets/flash-drive.svg" alt="" />
+                                    <p className=""><strong>USB</strong></p>
+                                </span>) : null}
+
+                            {(product.specs.is_sd == 1) ?
+                                (<span className="specs w3-animate-opacity">
+                                    <img style={{ width: "35px" }} src="assets/memory-card.svg" alt="" />
+                                    <p className=""><strong>SD</strong></p>
+                                </span>) : null}
+                        </div>
+
+                        <p className="my-4 btn fill_btn px-5">Buy Now</p>
+
+                    </div>
+                    <div className="col-sm">
+                        <div className="dot_nav">
+                            {products.map((product, index) => (
+                                <span onClick={(e) => handleClick(e, index)} className={`dot ${(index == product_id) ? 'dot_border' : null}`}>&#11044;</span>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+    ReactDOM.render(<Product />, document.querySelector('#root'));
+
+
+    /*Critical Thinking Test*/
+
+    const Cart = [
+        {
+            "id": 8723,
+            "original_price": 100,
+            "qty": 6
+        },
+        {
+            "id": 8724,
+            "original_price": 100,
+            "qty": 6
+        }
+    ];
+
+
+    let total_price = 0;
+    let discounts = [0, 10, 15, 20];
+
+    const get_discount = (price, qty) => {
+        const percent = discounts[qty]; // 15%
+        const sub_total = (price * qty);//100 * 2 = 200
+        const discount = (sub_total / 100) * percent; // 30
+        const discounted_price = sub_total - discount; // 170
+        return discounted_price;
+    }
+
+    for (let product of Cart) {
+
+        let qty = product.qty;
+
+        if (qty > 3 && qty <= 6) {
+            total_price += get_discount(product.original_price, 3);
+            total_price += get_discount(product.original_price, qty - 3);
+        }
+
+        if (qty > 0 && qty <= 3) {
+            total_price += get_discount(product.original_price, qty);
+        }
+
+
+    }
+
+    console.log(`Total Price: ${total_price}`);
+
+
+
+</script>
+
+</html>
